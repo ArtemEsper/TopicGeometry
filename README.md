@@ -113,4 +113,3 @@ This project is licensed under the MIT License.
 - **Pipeline Workflow**: Details each step of the ETL process, with usage instructions.
 - **Notes**: Provides reminders for setup verification and testing individual scripts.
 - **Future Improvements**: Suggests potential upgrades for pipeline robustness.
->>>>>>> 8455e71 (Before add the Mathematica files)
