@@ -1,5 +1,7 @@
 import csv
 import re
+import os
+from config import RAW_DATA_PATH, CLEANED_DATA_PATH  # Import paths from config
 
 
 def preprocess_line(line):
@@ -26,9 +28,14 @@ def fix_csv(input_file, output_file):
     print("CSV file fixed successfully!")
 
 
-# Set input and output file paths
-input_file = '/Volumes/X9 Pro/JSTOR/international_sequrity/2020_2024_metadata.csv'
-output_file = '/Volumes/X9 Pro/JSTOR/int_seq_cleaned/2020_2024_meta_fixed.csv'
+# Process all files in RAW_DATA_PATH
+def process_all_data_files():
+    for file_name in os.listdir(RAW_DATA_PATH):
+        input_file = os.path.join(RAW_DATA_PATH, file_name)
+        output_file = os.path.join(CLEANED_DATA_PATH, file_name)
+        print(f"Processing file: {file_name}")
+        fix_csv(input_file, output_file)
 
-# Call the function with input and output file paths
-fix_csv(input_file, output_file)
+
+if __name__ == "__main__":
+    process_all_data_files()
