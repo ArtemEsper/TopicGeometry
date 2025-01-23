@@ -2,3 +2,6 @@ __pycache__
 data/
 sql_scripts_dev/
 /sql_scripts_dev/
+scripts/config.py
+scripts/frametxt.py
+scripts/preprocess.py
