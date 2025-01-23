@@ -1,6 +1,6 @@
 # Data Cleaning Pipeline for JSTOR Metadata and N-gram Files
 
-This project automates the preprocessing of JSTOR metadata and n-gram files from the Constellate dataset. It cleans ASCII null characters and excess whitespace, prepares metadata for analysis, and uploads cleaned files to Google Cloud Storage for further processing in BigQuery.
+This project aims to automate the preprocessing of JSTOR metadata and n-gram files from the Constellate dataset. It cleans ASCII null characters and excess whitespace, prepares metadata for analysis, and uploads cleaned files to Google Cloud Storage for further processing in BigQuery.
 
 ## Project Structure
 
@@ -21,13 +21,13 @@ This project automates the preprocessing of JSTOR metadata and n-gram files from
    - Example:
      ```python
      # config.py
-     RAW_META_DATA_PATH = "/Volumes/X9 Pro/JSTOR/meta"
-     CLEANED_META_DATA_PATH = "/Volumes/X9 Pro/JSTOR/meta_cleaned/"
-     RAW_DATA_PATH = "/Volumes/X9 Pro/JSTOR/data"
-     CLEANED_DATA_PATH = "/Volumes/X9 Pro/JSTOR/data_cleaned"
-     BUCKET_NAME = "wise-data-csv"
-     PROJECT_NAME = "clarivate-datapipline-project"
-     DATASET_NAME = "jstor_international"
+     RAW_META_DATA_PATH = "metadata file path"
+     CLEANED_META_DATA_PATH = "cleaned metadata file path"
+     RAW_DATA_PATH = "path to a folder with uni-,bi-, and trigrams csv files"
+     CLEANED_DATA_PATH = "path to a folder with cleaned uni-,bi-, and trigrams csv files"
+     BUCKET_NAME = "GCP_bucket_name"
+     PROJECT_NAME = "GCP_project_name"
+     DATASET_NAME = "dataset_name"
      ```
 
 ## Pipeline Workflow
@@ -67,8 +67,6 @@ The cleaned files in CLEANED_META_DATA_PATH and CLEANED_DATA_PATH are uploaded t
 Google Cloud Storage.
 
 ### Step 4: Load Cleaned Files into BigQuery
-Once the files are in Google Cloud Storage, they can be loaded into BigQuery as separate tables for analysis.
-
 - **Usage**:
   Use the following BigQuery CLI command to load each file as a separate table:
   ```bash
@@ -78,8 +76,11 @@ Once the files are in Google Cloud Storage, they can be loaded into BigQuery as 
   --project_id=<your_project_id> \
   <your_dataset>.<table_name> \
   gs://<bucket_name>/<path_to_file>
+  
+Once the files are in Google Cloud Storage, they can be loaded into BigQuery as separate tables for analysis.
+### Step 4a: 
 
-### Step 5: Create four tables with documents metadata, unigrams, bigrams and trigrams 
+### Step 5: Create four tables with documents metadata, unigrams, bigrams and trigrams from the uploaded csv files 
 
 ### Step 6: Extract unique keywords from metadata table and distribute them across three tables of unigrams, bigrams and trigrams  
 

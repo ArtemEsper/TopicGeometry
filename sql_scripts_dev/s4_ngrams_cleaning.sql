@@ -1,7 +1,7 @@
 -- to reduce the number of rows we can clean the uni_, bi_ and trigram data tables using stopwords
 
 -- remove all words that have from 1 fo 5 characters and numbers since we do not have words of this length in
--- the collection of keywords
+-- the collection of keywords. The number of characters in the stop-words can be adjusted.
 DELETE
 FROM `clarivate-datapipline-project.jstor_international.int_uni`
 WHERE
