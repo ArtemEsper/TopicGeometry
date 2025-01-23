@@ -78,20 +78,23 @@ Google Cloud Storage.
   gs://<bucket_name>/<path_to_file>
   
 Once the files are in Google Cloud Storage, they can be loaded into BigQuery as separate tables for analysis.
-### Step 4a: 
 
-### Step 5: Create four tables with documents metadata, unigrams, bigrams and trigrams from the uploaded csv files 
+### Step 4a: Clean uni, bi and trigrams tables from the stopwords and various special characters like punctuation and etc.
+Use files s4_uni_cleaning.sql, s4_bi_cleaning.sql, s4_tri_cleaning.sql.
+The cleaning is incomplete and can be updated to remove more irrelevant words that can not be a part of scientific ontology.
 
-### Step 6: Extract unique keywords from metadata table and distribute them across three tables of unigrams, bigrams and trigrams  
+### Step 5: Extract unique keywords from metadata table and distribute them across three tables of unigrams, bigrams and trigrams  
+Use s5_keyword_extract.sql to separately extract uni-, bi- and trigrams from the 'keyword' column in the meta table 
+and attribute keywords with uniq id for the extracted keywords and add appropriate prefix U_, B_ and T_.
 
-### Step 7: Clean the uni-, bi- and trigram tables from entries with punctuation between words. 
-
-
-### Step 8: Update the keywords tables with the most frequent words in a cleaned uni-, bi- and trigram tables and give to
-### new concepts distinct id with UN_, BN_ and TN_ prefixes
+### Step 8: Update the keywords tables with the manually selected most frequent words from a cleaned uni-, bi- and trigram tables
+### and give to a new concepts distinct id with UN_, BN_ and TN_ prefixes
+The most frequent keywords that can be considered as a concepts stored in 'selected_keywords_uni.csv', 
+'selected_keywords_bi.csv' and 'selected_keywords_tri.csv' files.
 
 ### Step 9: Join JSTOR meta table with WOS_references and WOS_addresses to extract countries and journal titles
  -- metatable_jstor_wos.sql
+
 ### Step 10: Join the keywords table from step 9 and uni-, bi- and trigram tables to find their frequency across documents
  -- tables_match.sql
 ### Notes
@@ -102,6 +105,7 @@ The cleaning steps apply only to files that match the designated paths in config
 ### Future Improvements
 Implement logging for more robust monitoring.
 Add validation steps to ensure data consistency before uploading.
+Implement more extensive cleaning.
 
 ### License
 This project is licensed under the MIT License.
@@ -114,4 +118,3 @@ This project is licensed under the MIT License.
 - **Pipeline Workflow**: Details each step of the ETL process, with usage instructions.
 - **Notes**: Provides reminders for setup verification and testing individual scripts.
 - **Future Improvements**: Suggests potential upgrades for pipeline robustness.
->>>>>>> 8455e71 (Before add the Mathematica files)

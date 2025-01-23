@@ -129,7 +129,7 @@ WHERE LOWER(title) LIKE '%untitled%'
    OR LOWER(cited_title) LIKE 'reply'
    OR LOWER(cited_title) LIKE 'mexico';
 
--- we seems to have a duplicates in JSTOR mate file
+-- we seems to have a duplicates in JSTOR meta file and have to address these manually
 DELETE
 FROM `clarivate-datapipline-project.jstor_international.int_articlemeta_jstor_cleaned`
 where id = 'ark://27927/phw6bdb1g1';
