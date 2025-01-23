@@ -97,10 +97,12 @@ The most frequent keywords that can be considered as a concepts stored in 'selec
 
 ### Step 10: Join the keywords table from step 9 and uni-, bi- and trigram tables to find their frequency across documents
  -- tables_match.sql
+
 ### Notes
 Ensure config.py is correctly configured with your file paths and Google Cloud details before running the pipeline.
 To run specific scripts, call them directly with python removeascii.py or python csv_newdelimeters.py.
 The cleaning steps apply only to files that match the designated paths in config.py.
+The initial JSTOR dataset on a topic og international sequrity can be found on Zenodo repository 10.5281/zenodo.14638434.
 
 ### Future Improvements
 Implement logging for more robust monitoring.
