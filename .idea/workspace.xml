@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ad1f1b8-d0d9-43db-810b-4eef10903930" name="Changes" comment="Updated readme file to incorporate pipline logic.">
-      <change afterPath="$PROJECT_DIR$/vi_bubble_selected_topics.nb" afterDir="false" />
-    </list>
+    <list default="true" id="7ad1f1b8-d0d9-43db-810b-4eef10903930" name="Changes" comment="Mathematica files added" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -195,7 +193,7 @@
       <workItem from="1740991427739" duration="2155000" />
       <workItem from="1741706625631" duration="479000" />
       <workItem from="1741707171797" duration="2904000" />
-      <workItem from="1741782023059" duration="26763000" />
+      <workItem from="1741782023059" duration="27084000" />
     </task>
     <task id="LOCAL-00001" summary="Before add the Mathematica files">
       <created>1736770825117</created>
@@ -295,7 +293,14 @@
       <option name="project" value="LOCAL" />
       <updated>1741883775490</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Mathematica files added">
+      <created>1741884053826</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1741884053826</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,7 +343,8 @@
     <MESSAGE value="change script folder and add removeascii.py" />
     <MESSAGE value="Create pipline.py file to orchestrate the data cleaning and uploading to cloud storage and BigQuery. Change main.py to data_cleaning.py. Change bq_upload.py to bq_upload_tab_autocreate.py with automatic tables created." />
     <MESSAGE value="Updated readme file to incorporate pipline logic." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated readme file to incorporate pipline logic." />
+    <MESSAGE value="Mathematica files added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mathematica files added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
