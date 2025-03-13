@@ -15,7 +15,7 @@ client = bigquery.Client(project=PROJECT_ID)
 
 def load_csv_to_bigquery(folder_name, table_name):
     """Load CSV files from GCS into a BigQuery table."""
-    gcs_uri = f"gs://{BUCKET_NAME}/raw/{folder_name}/*.csv"  # ✅ Corrected GCS path
+    gcs_uri = f"gs://{BUCKET_NAME}/raw/{folder_name}/*.csv"  # GCS path
 
     job_config = bigquery.LoadJobConfig(
         source_format=bigquery.SourceFormat.CSV,

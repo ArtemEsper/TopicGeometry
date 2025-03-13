@@ -7,19 +7,22 @@ for analysis, and uploads cleaned files to Google Cloud Storage for further proc
 ## Project Structure
 
 - **`config.py`**: Stores file paths and Google Cloud project information.
-- **`cleaning.py`**: Combines the logic for ASCII characters cleaning and setting correct line delimiters.
+- **`data_cleaning.py`**: Combines the logic for ASCII characters cleaning and setting correct line delimiters.
 - **`GCPstorage_upload.py`**: Sorts and uploads metadata and data files in separate folders (metadata, 
 unigrams, bigrams and trigrams)
+- **`bq_upload.py`**: Uploads files from Cloud Storage to BigQuery. Create four tables 'meta_raw', 'unigrams_raw', 
+'bigrams_raw' and 'trigrams_raw'.
+- **`pipline.py`**: Orchestrates the cleaning and uploading steps.
 
 ## Getting Started
 
 1. **Prerequisites**:
    - Python 3.x
-   - Required Python libraries: `csv`, `re`, `os`, `google-cloud-storage`
+   - Required Python libraries: `csv`, `re`, `os`, `chardet`, `shutil`, `google-cloud-storage`, `google.api_core.exceptions`
    - Google Cloud SDK for uploading cleaned files to Google Cloud Storage
 
 2. **Configuration**:
-   - Set file paths and bucket details in `config.py`. 
+   - Set local file paths, bucket details and BQ dataset in `config.py`. 
    - Example:
      ```python
      # config.py
@@ -28,19 +31,15 @@ unigrams, bigrams and trigrams)
      RAW_DATA_PATH = "path to a folder with uni-,bi-, and trigrams csv files"
      CLEANED_DATA_PATH = "path to a folder with cleaned uni-,bi-, and trigrams csv files"
      BUCKET_NAME = "GCP_bucket_name"
-     PROJECT_NAME = "GCP_project_name"
-     DATASET_NAME = "dataset_name"
+     PROJECT_ID = "GCP_project_name"
+     DATASET_ID = "BigQuery dataset name"
      ```
 
 ## Pipeline Workflow
 
-### Step 1: Clean Metadata Files
-The `cleaning.py` script cleans ASCII null characters from metadata files and sets correct newline delimiters.
+### Step 1: Clean Metadata Files (part of pipline.py)
+The `data_cleaning.py` script cleans ASCII null characters from metadata files and sets correct newline delimiters.
 
-- **Usage**:
-  ```bash
-  python cleaning.py
-  
 Process:
 Loops through all files in RAW_META_DATA_PATH and RAW_DATA_PATH.
 Cleans each file of ASCII null characters and preprocesses whitespace and adds newline delimiters to n-gram and 
@@ -48,9 +47,9 @@ other metadata files.
 Saves cleaned meta files in CLEANED_META_DATA_PATH and data files in CLEANED_DATA_PATH.
 - **Usage**:
   ```bash
-  python cleaning.py
+  python data_cleaning.py
 
-### Step 2: Sort and upload files to GCP bucket
+### Step 2: Sort and upload files to GCP bucket (part of pipline.py)
 The `GCPstorage_upload.py` script uploads metadata and n-gram files to corresponding folders GCP clous storage.
 - **Usage**:
   ```bash
@@ -61,13 +60,18 @@ Sort files in CLEANED_DATA_PATH into three categories unigrams, bigrams, trigram
 corresponding folders.
 Saves files from CLEANED_META_DATA_PATH to meta folder in Google Cloud Storage.
 
-### Step 3: Load Cleaned Files into BigQuery
-- **Usage**:
+### Step 3: Load Cleaned Files into BigQuery (part of pipline.py)
 The `bq_upload.py` script uploads csv files from the Google Cloud Storage folders 'meta', 'unigrams', 'bigrams' 
 and 'trigrams' to corresponding tables 'meta_raw', 'unigrams_raw', 'bigrams_raw' and 'trigrams_raw'.
 - **Usage**:
   ```bash
   python bq_upload.py
+  
+### Combine steps 1 to 3
+Combines the cleaning and uploading steps described above.
+- **Usage**:
+  ```bash
+  python pipline.py
 
 ### Step 4: Clean uni, bi and trigrams tables from the stopwords and various special characters like punctuation and etc.
 Use files s4_uni_cleaning.sql, s4_bi_cleaning.sql, s4_tri_cleaning.sql.
