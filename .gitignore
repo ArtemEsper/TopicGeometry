@@ -2,6 +2,10 @@ __pycache__
 data/
 sql_scripts_dev/
 /sql_scripts_dev/
+scripts_dev/
+/scripts_dev/
 scripts/config.py
-scripts/frametxt.py
-scripts/preprocess.py
+scripts_dev/frametxt.py
+scripts_dev/preprocess.py
+scripts_dev/remove_acii.py.py
+scripts_dev/csv_newdelimeters.py

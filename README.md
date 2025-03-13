@@ -1,13 +1,15 @@
 # Data Cleaning Pipeline for JSTOR Metadata and N-gram Files
 
-This project aims to automate the preprocessing of JSTOR metadata and n-gram files from the Constellate dataset. It cleans ASCII null characters and excess whitespace, prepares metadata for analysis, and uploads cleaned files to Google Cloud Storage for further processing in BigQuery.
+This project aims to automate the preprocessing of JSTOR metadata and n-gram files from 
+the Constellate dataset. It cleans ASCII null characters and excess whitespace, prepares metadata 
+for analysis, and uploads cleaned files to Google Cloud Storage for further processing in BigQuery.
 
 ## Project Structure
 
 - **`config.py`**: Stores file paths and Google Cloud project information.
-- **`removeascii.py`**: Cleans ASCII null characters from metadata files.
-- **`csv_newdelimeters.py`**: Removes excess whitespace and adds newline delimiters to other CSV files.
-- **`main.py`**: Orchestrates the pipeline by calling the cleaning scripts on relevant files.
+- **`cleaning.py`**: Combines the logic for ASCII characters cleaning and setting correct line delimiters.
+- **`GCPstorage_upload.py`**: Sorts and uploads metadata and data files in separate folders (metadata, 
+unigrams, bigrams and trigrams)
 
 ## Getting Started
 
@@ -33,53 +35,41 @@ This project aims to automate the preprocessing of JSTOR metadata and n-gram fil
 ## Pipeline Workflow
 
 ### Step 1: Clean Metadata Files
-The `removeascii.py` script cleans ASCII null characters from metadata files.
+The `cleaning.py` script cleans ASCII null characters from metadata files and sets correct newline delimiters.
 
 - **Usage**:
   ```bash
-  python removeascii.py
-Process:
-Loops through all files in RAW_META_DATA_PATH.
-Cleans each file of ASCII null characters.
-Saves cleaned files in CLEANED_META_DATA_PATH.
-
-### Step 2: Clean N-gram and Other Data Files
-The csv_newdelimeters.py script preprocesses whitespace and adds newline delimiters to n-gram and 
-other non-metadata files.
-- **Usage**:
-  ```bash
-  python csv_newdelimeters.py
-
-Process:
-Loops through all files in RAW_DATA_PATH.
-Removes excessive whitespace and adjusts newline delimiters.
-Saves processed files in CLEANED_DATA_PATH.
-
-### Step 3: Upload to Google Cloud Storage
-Once the files are cleaned, they can be uploaded to Google Cloud Storage for further processing.
-
-- **Usage**:
-  ```bash
-  ppython main.py --upload
-
-Process:
-The cleaned files in CLEANED_META_DATA_PATH and CLEANED_DATA_PATH are uploaded to the specified bucket in 
-Google Cloud Storage.
-
-### Step 4: Load Cleaned Files into BigQuery
-- **Usage**:
-  Use the following BigQuery CLI command to load each file as a separate table:
-  ```bash
-  bq load --source_format=CSV --autodetect \
-  --skip_leading_rows=1 \
-  --field_delimiter="\"" \
-  --project_id=<your_project_id> \
-  <your_dataset>.<table_name> \
-  gs://<bucket_name>/<path_to_file>
+  python cleaning.py
   
-Once the files are in Google Cloud Storage, they can be loaded into BigQuery as separate tables for analysis.
+Process:
+Loops through all files in RAW_META_DATA_PATH and RAW_DATA_PATH.
+Cleans each file of ASCII null characters and preprocesses whitespace and adds newline delimiters to n-gram and 
+other metadata files.
+Saves cleaned meta files in CLEANED_META_DATA_PATH and data files in CLEANED_DATA_PATH.
+- **Usage**:
+  ```bash
+  python cleaning.py
 
-### Step 4a: Clean uni, bi and trigrams tables from the stopwords and various special characters like punctuation and etc.
+### Step 2: Sort and upload files to GCP bucket
+The `GCPstorage_upload.py` script uploads metadata and n-gram files to corresponding folders GCP clous storage.
+- **Usage**:
+  ```bash
+  python GCPstorage_upload.py
+
+Process:
+Sort files in CLEANED_DATA_PATH into three categories unigrams, bigrams, trigrams and save in Google Cloud Storage in  
+corresponding folders.
+Saves files from CLEANED_META_DATA_PATH to meta folder in Google Cloud Storage.
+
+### Step 3: Load Cleaned Files into BigQuery
+- **Usage**:
+The `bq_upload.py` script uploads csv files from the Google Cloud Storage folders 'meta', 'unigrams', 'bigrams' 
+and 'trigrams' to corresponding tables 'meta_raw', 'unigrams_raw', 'bigrams_raw' and 'trigrams_raw'.
+- **Usage**:
+  ```bash
+  python bq_upload.py
+
+### Step 4: Clean uni, bi and trigrams tables from the stopwords and various special characters like punctuation and etc.
 Use files s4_uni_cleaning.sql, s4_bi_cleaning.sql, s4_tri_cleaning.sql.
 The cleaning is incomplete and can be updated to remove more irrelevant words that can not be a part of scientific ontology.
 
@@ -100,9 +90,9 @@ The most frequent keywords that can be considered as a concepts stored in 'selec
 
 ### Notes
 Ensure config.py is correctly configured with your file paths and Google Cloud details before running the pipeline.
-To run specific scripts, call them directly with python removeascii.py or python csv_newdelimeters.py.
+
 The cleaning steps apply only to files that match the designated paths in config.py.
-The initial JSTOR dataset on a topic og international sequrity can be found on Zenodo repository 10.5281/zenodo.14638434.
+The initial JSTOR dataset on 'International security' topic can be found on Zenodo repository 10.5281/zenodo.14638434.
 
 ### Future Improvements
 Implement logging for more robust monitoring.
