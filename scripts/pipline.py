@@ -1,6 +1,7 @@
 import subprocess
 import sys
 
+
 def run_step(command, step_name):
     """Run a subprocess and stream output in real-time."""
     # Print which step we are running
@@ -32,6 +33,7 @@ def run_step(command, step_name):
 
     print(f"✅ {step_name} completed successfully!")
 
+
 def main():
     # Step 1: Data Cleaning
     run_step([sys.executable, "data_cleaning.py"], "Step 1: Running Data Cleaning")
@@ -40,9 +42,10 @@ def main():
     run_step([sys.executable, "GCPstorage_upload.py"], "Step 2: Uploading Files to GCS")
 
     # Step 3: BigQuery Upload
-    run_step([sys.executable, "bq_upload.py"], "Step 3: Loading Data into BigQuery")
+    run_step([sys.executable, "bq_upload_tab_autocreate.py"], "Step 3: Loading Data into BigQuery")
 
     print("\n🚀 Pipeline finished successfully!")
+
 
 if __name__ == "__main__":
     main()
