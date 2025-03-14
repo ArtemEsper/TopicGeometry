@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ad1f1b8-d0d9-43db-810b-4eef10903930" name="Changes" comment="Mathematica files added" />
+    <list default="true" id="7ad1f1b8-d0d9-43db-810b-4eef10903930" name="Changes" comment="Mathematica files added">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -193,7 +195,7 @@
       <workItem from="1740991427739" duration="2155000" />
       <workItem from="1741706625631" duration="479000" />
       <workItem from="1741707171797" duration="2904000" />
-      <workItem from="1741782023059" duration="27084000" />
+      <workItem from="1741782023059" duration="28713000" />
     </task>
     <task id="LOCAL-00001" summary="Before add the Mathematica files">
       <created>1736770825117</created>
@@ -300,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1741884053826</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Mathematica files added">
+      <created>1741884451782</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1741884451782</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
