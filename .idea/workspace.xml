@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ad1f1b8-d0d9-43db-810b-4eef10903930" name="Changes" comment="pipline.py modified to track each script’s output in real time using subprocess.Popen">
+    <list default="true" id="7ad1f1b8-d0d9-43db-810b-4eef10903930" name="Changes" comment="update pipline file and add schema for bq upload">
+      <change afterPath="$PROJECT_DIR$/.idea/international_sequrity_jstor.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/deduplication.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql_scripts/deduplication.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/GCPstorage_upload.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/GCPstorage_upload.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/bq_upload_tab_autocreate.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/bq_upload_tab_autocreate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/pipline.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/pipline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_scripts/s4_bi_cleaning.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_scripts/s5_bi_cleaning.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_scripts/s4_tri_cleaning.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_scripts/s5_tri_cleaning.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_scripts/s4_uni_cleaning.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_scripts/s5_uni_cleaning.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_scripts/s5_keywords_extract.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_scripts/s6_keywords_extract.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -42,6 +47,7 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
     "last_opened_file_path": "/Users/macbook/Documents/GitHub/international_sequrity_jstor/scripts_dev",
@@ -198,7 +204,8 @@
       <workItem from="1740991427739" duration="2155000" />
       <workItem from="1741706625631" duration="479000" />
       <workItem from="1741707171797" duration="2904000" />
-      <workItem from="1741782023059" duration="33062000" />
+      <workItem from="1741782023059" duration="33954000" />
+      <workItem from="1742206738378" duration="5198000" />
     </task>
     <task id="LOCAL-00001" summary="Before add the Mathematica files">
       <created>1736770825117</created>
@@ -319,7 +326,14 @@
       <option name="project" value="LOCAL" />
       <updated>1741955278881</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="update pipline file and add schema for bq upload">
+      <created>1741973534646</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1741973534646</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,7 +378,8 @@
     <MESSAGE value="Updated readme file to incorporate pipline logic." />
     <MESSAGE value="Mathematica files added" />
     <MESSAGE value="pipline.py modified to track each script’s output in real time using subprocess.Popen" />
-    <option name="LAST_COMMIT_MESSAGE" value="pipline.py modified to track each script’s output in real time using subprocess.Popen" />
+    <MESSAGE value="update pipline file and add schema for bq upload" />
+    <option name="LAST_COMMIT_MESSAGE" value="update pipline file and add schema for bq upload" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -386,7 +401,7 @@
     <SUITE FILE_PATH="coverage/international_sequrity_jstor$main.coverage" NAME="main Coverage Results" MODIFIED="1741791423156" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/international_sequrity_jstor$GCPstorage_upload.coverage" NAME="GCPstorage_upload Coverage Results" MODIFIED="1741970596368" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/international_sequrity_jstor$scv_newdelimeters.coverage" NAME="scv_newdelimeters Coverage Results" MODIFIED="1741784758839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/international_sequrity_jstor$bq_upload_tab_autocreate.coverage" NAME="bq_upload_tab_autocreate Coverage Results" MODIFIED="1741972462653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/international_sequrity_jstor$bq_upload_tab_autocreate.coverage" NAME="bq_upload_tab_autocreate Coverage Results" MODIFIED="1741973229636" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/international_sequrity_jstor$cleaning.coverage" NAME="cleaning Coverage Results" MODIFIED="1741865828555" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
   </component>
 </project>

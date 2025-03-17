@@ -68,28 +68,36 @@ and 'trigrams' to corresponding tables 'meta_raw', 'unigrams_raw', 'bigrams_raw'
   python bq_upload.py
   
 ### Combine steps 1 to 3
-Combines the cleaning and uploading steps described above.
+Combines the cleaning and uploading steps described above. RESULT is four tables 'meta_raw', 'unigrams_raw', 
+'bigrams_raw' and 'trigrams_raw' in BQ.
 - **Usage**:
   ```bash
   python pipline.py
+  
+### Step 4: Deduplicate the `meta_raw` table and other ngram tables in BQ based on title, year and author document metadata. 
+Important: BigQuery does not support multi-table transactions. We do this in separate steps: 
+first identify duplicates, decide which id to keep, then remove the unwanted ids from the n-gram tables.
+- **Usage**:
+  ```bash
+  python deduplication.py
 
-### Step 4: Clean uni, bi and trigrams tables from the stopwords and various special characters like punctuation and etc.
-Use files s4_uni_cleaning.sql, s4_bi_cleaning.sql, s4_tri_cleaning.sql.
+### Step 5: Clean uni, bi and trigrams tables from the stopwords and various special characters like punctuation and etc.
+Use files s5_uni_cleaning.sql, s5_bi_cleaning.sql, s5_tri_cleaning.sql.
 The cleaning is incomplete and can be updated to remove more irrelevant words that can not be a part of scientific ontology.
 
-### Step 5: Extract unique keywords from metadata table and distribute them across three tables of unigrams, bigrams and trigrams  
+### Step 6: Extract unique keywords from metadata table and distribute them across three tables of unigrams, bigrams and trigrams  
 Use s5_keyword_extract.sql to separately extract uni-, bi- and trigrams from the 'keyword' column in the meta table 
 and attribute keywords with uniq id for the extracted keywords and add appropriate prefix U_, B_ and T_.
 
-### Step 8: Update the keywords tables with the manually selected most frequent words from a cleaned uni-, bi- and trigram tables
+### Step 7: Update the keywords tables with the manually selected most frequent words from a cleaned uni-, bi- and trigram tables
 ### and give to a new concepts distinct id with UN_, BN_ and TN_ prefixes
 The most frequent keywords that can be considered as a concepts stored in 'selected_keywords_uni.csv', 
 'selected_keywords_bi.csv' and 'selected_keywords_tri.csv' files.
 
-### Step 9: Join JSTOR meta table with WOS_references and WOS_addresses to extract countries and journal titles
+### Step 8: Join JSTOR meta table with WOS_references and WOS_addresses to extract countries and journal titles
  -- metatable_jstor_wos.sql
 
-### Step 10: Join the keywords table from step 9 and uni-, bi- and trigram tables to find their frequency across documents
+### Step 9: Join the keywords table from step 9 and uni-, bi- and trigram tables to find their frequency across documents
  -- tables_match.sql
 
 ### Notes
