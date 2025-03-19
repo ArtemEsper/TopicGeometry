@@ -9,7 +9,7 @@ SET ngram = REGEXP_REPLACE(
 WHERE REGEXP_CONTAINS(ngram, r"(?i)(^[`'’”“.,;()\s]+\w+\s\w+)|(\w+\s\w+[`'’”“.,;()\s]+$)");
 
 -- Remove entries with unwanted patterns, symbols, and special characters
-DELETE FROM `clarivate-datapipline-project.jstor_international.int_bi_test`
+DELETE FROM `clarivate-datapipline-project.lg_jstor.bigrams_cleaned`
 WHERE
   -- Entries with punctuation or special characters between or around words
   REGEXP_CONTAINS(ngram, r'(?i)\b\w+[\.,;():”¿¡“?!]+\s*\w+\b|\b\w+\s*[\.,;():”¿¡“?!]+\w+\b|[\.,;():”¿¡“?!]+\s*\w+\b|\b\w+\s*[\.,;():”¿¡“?!]+$')
@@ -59,7 +59,50 @@ WHERE
   REGEXP_CONTAINS(ngram, r'[^a-zA-Z0-9\s]{2,}')
   OR
   -- Patterns with mixed symbols and international characters like Katakana, Han, or Greek
-  REGEXP_CONTAINS(ngram, r'(?i)\b\w+[.,;:!?\"\'”]+\s*\w+\b|\b\w+\s*[.,;:!?\"\'”]+\w+\b|\b[\p{Han}\p{Katakana}\p{Greek}−−−]+\s*\w+\b|\b\w+\s*[\p{Han}\p{Katakana}\p{Greek}−−−]+\b');
+  REGEXP_CONTAINS(ngram, r'(?i)\b\w+[.,;:!?\"\'”]+\s*\w+\b|\b\w+\s*[.,;:!?\"\'”]+\w+\b|\b[\p{Han}\p{Katakana}\p{Greek}−−−]+\s*\w+\b|\b\w+\s*[\p{Han}\p{Katakana}\p{Greek}−−−]+\b')
+  -- (\n \n): Targets exactly \n \n.
+  -- (\bp\b\s*<): Matches cases like p < where p is followed by < after optional whitespace.
+  -- (\*\s*\*): Finds ** *, matching any spacing between * symbols.
+  -- \s+–\s+: Finds dash patterns surrounded by spaces.
+  -- ^[^a-zA-Z0-9]+$: Matches entries that consist only of non-alphanumeric characters.
+  -- \s{2,} matches two or more whitespace characters (\s includes spaces, tabs, and newlines).
+  OR REGEXP_CONTAINS(ngram, r'(\n \n)|(\bp\b\s*<)|(\*\s*\*)')
+  OR REGEXP_CONTAINS(ngram, r'\s+–\s+')
+  OR REGEXP_CONTAINS(ngram, r'^[^a-zA-Z0-9]+$')
+  OR REGEXP_CONTAINS(ngram, r'\s{2,}')
+  OR ngram LIKE '%\\t\\n\\n%'
+  -- removes  the " abr.] [see" and "c., &" and "r., &" entries and something like "c© royal" and "(© afp"
+  OR REGEXP_CONTAINS(ngram,r'(?i)\b\w,\s&|[\w\s\]]+\.\]\s\[\w+|[a-z]\.,\s&|c©\sroyal|\(©\safp')
+  -- cleaning the patterns like "– but" or "hemasphere |"
+  OR REGEXP_CONTAINS(ngram,r'(?i)\b\p{Pd}\s?\w+|\w+\s?\|')
+  -- delete "theory ©" patterns
+  OR REGEXP_CONTAINS(ngram,r'(?i)\b\w+\s?©')
+  -- removes patterns like "business &" and "– it" and "implications –"
+  OR REGEXP_CONTAINS(ngram,r'(?i)\b\w+\s*[&=©|–]\s*\w+\b|\b\w+\s*–|©\s*\w+\b|\b\w+\s*=')
+  -- \b\w+\s*[.,;:!?\"\'””‘“—–-]+\s*\w+\b: Matches words that have any punctuation (including various types of dashes –, —, and hyphens -) in between, possibly with spaces around the punctuation.
+  -- \b[.,;:!?\"\'””‘“—–-]+\s*\w+\b: Matches entries where punctuation precedes a word.
+  -- \b\w+\s*[.,;:!?\"\'””‘“—–-]+\b: Matches entries where punctuation follows a word
+  OR REGEXP_CONTAINS(ngram,r'(?i)\b\w+\s*[.,;:!?\"\'””‘“—–-]+\s*\w+\b|\b[.,;:!?\"\'””‘“—–-]+\s*\w+\b|\b\w+\s*[.,;:!?\"\'””‘“—–-]+\b')
+  -- [—–-]: Matches any of the dash characters (—, –, or -).
+  -- \s*: Allows for optional spaces between the dash and the word.
+  -- \b\w+\b: Matches a whole word following the dash (or preceding the dash in the alternative).
+  -- (?: ... ): A non-capturing group to match either pattern.
+  -- (?i): Makes the pattern case-insensitive.
+  OR REGEXP_CONTAINS(ngram,r'(?i)(?:[—–-]\s*\b\w+\b|\b\w+\b\s*[—–-])')
+  -- delete patterns like "à la" and "& business" or "business &"
+  OR REGEXP_CONTAINS(ngram,r'(?i)(?:\b\w+\b\s*[—–&-]\s*\b\w+\b|\b\w+\b\s*[—–&-]|[—–&-]\s*\b\w+\b|à\s+la)')
+  -- delete patterns like: "libraries \n", "• september", or "science &" also captures som of the "\n \n" entries
+  OR REGEXP_CONTAINS(ngram,r'(?i)(\b\w+\s*\\n\b|\b•\s+\w+\b|\b\w+\s*&\b|\b&\s*\w+\b)')
+  -- delete patterns like ""• september" and others lake `word' word` and `word'" word`
+  OR REGEXP_CONTAINS(ngram,r'(?i)(\b•\s+\w+\b|\b\w+\s*•\b|\b\w+\s*&\b|\b&\s*\w+\b|\b\w+\s+[^\w\s]+\b|[^\w\s]+\s+\w+\b)')
+  -- capture cases like "s. &" where we have a single-letter word or abbreviation followed by punctuation and an ampersand
+  OR REGEXP_CONTAINS(ngram,r'(?i)\b\w{1,3}\.\s*&|\b\w{1,3},\s*&')
+  -- deletes patterns like "xiv +", "xiv =", "xiv <", "xiv >"
+  OR REGEXP_CONTAINS(ngram,r'(?i)\b\w+\s*[\+\=\<\>]')
+  -- this deletes patterns where word is followed by a special character like "•"
+  OR REGEXP_CONTAINS(ngram, r"\b\w+\s[•]")
+  --deletes entries with '’”“‘‘.,:; inbetween words
+  OR REGEXP_CONTAINS(ngram,r"(?i)\b\w+[\s`'’”“‘‘.,:;()?!\[\]]+\w+\b") AND NOT REGEXP_CONTAINS(ngram,r"(?i)\b\w+\s+\w+\b");
 
 
 
@@ -67,6 +110,6 @@ WHERE
 
 SELECT distinct LOWER(ngram) as ngram,
                 sum(count) as sumcount
-FROM `clarivate-datapipline-project.jstor_international.int_bi`
+FROM `clarivate-datapipline-project.lg_jstor.bigrams_cleaned`
 group by ngram
 order by sumcount desc;

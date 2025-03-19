@@ -8,7 +8,7 @@
 SELECT
   COUNT(*) AS total_rows,
   COUNT(DISTINCT id) AS distinct_ids
-FROM 'clarivate-datapipline-project.lg_jstor.meta_raw'
+FROM 'clarivate-datapipline-project.lg_jstor.meta_raw';
 
 -- Step 1
 -- In 'meta_raw' table we group by title, publicationYear, and creator. Within each group, we can pick one
