@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ad1f1b8-d0d9-43db-810b-4eef10903930" name="Changes" comment="Deduplication script in deduplication.sql and usage in Python deduplication.py for raw tables uploaded in BQ.">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/uni_cleaning_bq.py" afterDir="false" />
+    <list default="true" id="7ad1f1b8-d0d9-43db-810b-4eef10903930" name="Changes" comment="update a for cleaning routine. Add automation for unigram table cleaning. Update bigrams table cleaning.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/deduplication.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/deduplication_bq.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql_scripts/deduplication.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_scripts/deduplication.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql_scripts/s5_bi_cleaning.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_scripts/s5_bi_cleaning.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql_scripts/s5_uni_cleaning.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_scripts/s5_uni_cleaning.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +201,7 @@
       <workItem from="1741706625631" duration="479000" />
       <workItem from="1741707171797" duration="2904000" />
       <workItem from="1741782023059" duration="33954000" />
-      <workItem from="1742206738378" duration="20206000" />
+      <workItem from="1742206738378" duration="21460000" />
     </task>
     <task id="LOCAL-00001" summary="Before add the Mathematica files">
       <created>1736770825117</created>
@@ -341,7 +336,14 @@
       <option name="project" value="LOCAL" />
       <updated>1742216152824</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="update a for cleaning routine. Add automation for unigram table cleaning. Update bigrams table cleaning.">
+      <created>1742384551337</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1742384551337</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -388,7 +390,8 @@
     <MESSAGE value="pipline.py modified to track each script’s output in real time using subprocess.Popen" />
     <MESSAGE value="update pipline file and add schema for bq upload" />
     <MESSAGE value="Deduplication script in deduplication.sql and usage in Python deduplication.py for raw tables uploaded in BQ." />
-    <option name="LAST_COMMIT_MESSAGE" value="Deduplication script in deduplication.sql and usage in Python deduplication.py for raw tables uploaded in BQ." />
+    <MESSAGE value="update a for cleaning routine. Add automation for unigram table cleaning. Update bigrams table cleaning." />
+    <option name="LAST_COMMIT_MESSAGE" value="update a for cleaning routine. Add automation for unigram table cleaning. Update bigrams table cleaning." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
