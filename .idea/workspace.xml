@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ad1f1b8-d0d9-43db-810b-4eef10903930" name="Changes" comment="Update bigram cleaning sql" />
+    <list default="true" id="7ad1f1b8-d0d9-43db-810b-4eef10903930" name="Changes" comment="Update bigram cleaning sql (formatting with stages)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_scripts/s5_bi_cleaning.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_scripts/s5_bi_cleaning.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_scripts/s5_tri_cleaning.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_scripts/s5_tri_cleaning.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -198,7 +202,7 @@
       <workItem from="1741706625631" duration="479000" />
       <workItem from="1741707171797" duration="2904000" />
       <workItem from="1741782023059" duration="33954000" />
-      <workItem from="1742206738378" duration="22067000" />
+      <workItem from="1742206738378" duration="30642000" />
     </task>
     <task id="LOCAL-00001" summary="Before add the Mathematica files">
       <created>1736770825117</created>
@@ -347,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1742401631977</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Update bigram cleaning sql (formatting with stages)">
+      <created>1742459788423</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1742459788423</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -396,7 +407,8 @@
     <MESSAGE value="Deduplication script in deduplication.sql and usage in Python deduplication.py for raw tables uploaded in BQ." />
     <MESSAGE value="update a for cleaning routine. Add automation for unigram table cleaning. Update bigrams table cleaning." />
     <MESSAGE value="Update bigram cleaning sql" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update bigram cleaning sql" />
+    <MESSAGE value="Update bigram cleaning sql (formatting with stages)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update bigram cleaning sql (formatting with stages)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,4 +1,4 @@
--- Consolidated Clean-Up Query for `int_bi` Table in BigQuery
+-- Consolidated Clean-Up Query for bigrams Table in BigQuery
 
 -- Stage 1 Create a copy of a table for cleaning
 CREATE OR REPLACE TABLE `clarivate-datapipline-project.lg_jstor.bigrams_cleaned` AS
