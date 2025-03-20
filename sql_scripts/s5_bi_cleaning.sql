@@ -1,10 +1,10 @@
 -- Consolidated Clean-Up Query for `int_bi` Table in BigQuery
 
--- create a copy of a table for cleaning
+-- Stage 1 Create a copy of a table for cleaning
 CREATE OR REPLACE TABLE `clarivate-datapipline-project.lg_jstor.bigrams_cleaned` AS
 SELECT * FROM `clarivate-datapipline-project.lg_jstor.bigrams_deduplicated`;
 
--- Update to remove extra symbols at the beginning and end of the bigram
+-- Stage 2 Update to remove extra symbols at the beginning and end of the bigram
 UPDATE `clarivate-datapipline-project.lg_jstor.bigrams_cleaned`
 SET ngram = REGEXP_REPLACE(
     REGEXP_REPLACE(ngram, r"(?i)^[`'’”“.,;()\s]+", ""),  -- Remove unwanted characters at the start of the first word
@@ -20,7 +20,7 @@ WHERE REGEXP_CONTAINS(
   r"^['\"][a-zA-Z]+ [a-zA-Z]+['\"]$"
 );
 
--- deleting the rare bigrams
+-- Stage 3 Deleting the rare bigrams
 DELETE FROM `clarivate-datapipline-project.lg_jstor.bigrams_cleaned`
 WHERE LOWER(ngram) IN (
     SELECT ngram
@@ -36,7 +36,7 @@ WHERE LOWER(ngram) IN (
 
 --############################### cleaning #####################################
 
--- Remove entries with unwanted patterns, symbols, and special characters
+-- Stage 4 Remove entries with unwanted patterns, symbols, and special characters
 DELETE FROM `clarivate-datapipline-project.lg_jstor.bigrams_cleaned`
 WHERE
   -- Entries with punctuation or special characters between or around words
@@ -157,16 +157,16 @@ WHERE
 ;
 
 
+-- ################################## Dev queries ###################################
 
-
-SELECT *
-FROM `clarivate-datapipline-project.lg_jstor.bigrams_cleaned`
-WHERE REGEXP_CONTAINS(ngram, r"^[^\w\s]\s\w+");
-
-
-
-SELECT distinct LOWER(ngram) as ngram,
-                sum(count) as sumcount
-FROM `clarivate-datapipline-project.lg_jstor.bigrams_cleaned`
-group by ngram
-order by sumcount desc;
+-- SELECT *
+-- FROM `clarivate-datapipline-project.lg_jstor.bigrams_cleaned`
+-- WHERE REGEXP_CONTAINS(ngram, r"^[^\w\s]\s\w+");
+--
+--
+--
+-- SELECT distinct LOWER(ngram) as ngram,
+--                 sum(count) as sumcount
+-- FROM `clarivate-datapipline-project.lg_jstor.bigrams_cleaned`
+-- group by ngram
+-- order by sumcount desc;
